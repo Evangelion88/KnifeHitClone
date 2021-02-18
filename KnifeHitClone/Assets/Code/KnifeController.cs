@@ -18,7 +18,8 @@ public class KnifeController : MonoBehaviour
     {
         free = true;
         mainController.knife = gameObject;
-        knifeRb = gameObject.GetComponent<Rigidbody>();   
+        knifeRb = gameObject.GetComponent<Rigidbody>();
+        logController = log.GetComponent<LogController>();
     }
 
     private void FixedUpdate()
