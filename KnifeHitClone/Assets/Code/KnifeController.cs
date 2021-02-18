@@ -39,15 +39,16 @@ public class KnifeController : MonoBehaviour
             mainController.ready = false;
             mainController.NewKnife();
         }
-        else if(other.tag=="Player")
+        else if(other.tag=="Player" && free == true)
         {
             free = false;
 
             knifeRb.velocity = new Vector3(0, 0, 0);
 
-            knifeRb.AddRelativeForce(Vector3.up * hitForce, ForceMode.Impulse);
-            knifeRb.AddRelativeForce(Vector3.back * hitForce/2, ForceMode.Impulse);
-            knifeRb.AddRelativeTorque(Random.Range(0, 10), Random.Range(0, 10), Random.Range(0, 10));
+            knifeRb.AddForce(Vector3.up * hitForce/3, ForceMode.Impulse);
+            knifeRb.AddForce(Vector3.back * hitForce, ForceMode.Impulse);
+            knifeRb.AddForce(Vector3.left * hitForce/2, ForceMode.Impulse);
+            knifeRb.AddTorque(100000, 0, 0);
 
             mainController.ready = false;
             logController.isPlay = false;
