@@ -5,7 +5,7 @@ using UnityEngine;
 public class KnifeController : MonoBehaviour
 {
     Rigidbody knifeRb;
-    bool free = true;
+    public bool free = true;
     public float rotationSpeed;
     public float hitForce;
     [Space]
@@ -29,7 +29,21 @@ public class KnifeController : MonoBehaviour
     }
     void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Trigger")
+        if (other.tag == "Player" && free == true)
+        {
+            free = false;
+
+            knifeRb.velocity = new Vector3(0, 0, 0);
+
+            knifeRb.AddForce(Vector3.up * hitForce, ForceMode.Impulse);
+            knifeRb.AddForce(Vector3.back * hitForce, ForceMode.Impulse);
+            knifeRb.AddForce(Vector3.left * hitForce, ForceMode.Impulse);
+            knifeRb.AddTorque(100000, 0, 0);
+
+            mainController.ready = false;
+            logController.isPlay = false;
+        }
+        else if (other.tag == "Trigger")
         {
             free = false;
 
@@ -39,19 +53,6 @@ public class KnifeController : MonoBehaviour
             mainController.ready = false;
             mainController.NewKnife();
         }
-        else if(other.tag=="Player" && free == true)
-        {
-            free = false;
-
-            knifeRb.velocity = new Vector3(0, 0, 0);
-
-            knifeRb.AddForce(Vector3.up * hitForce/3, ForceMode.Impulse);
-            knifeRb.AddForce(Vector3.back * hitForce, ForceMode.Impulse);
-            knifeRb.AddForce(Vector3.left * hitForce/2, ForceMode.Impulse);
-            knifeRb.AddTorque(100000, 0, 0);
-
-            mainController.ready = false;
-            logController.isPlay = false;
-        }
+        
     }
 }
