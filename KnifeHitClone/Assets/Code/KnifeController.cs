@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class KnifeController : MonoBehaviour
 {
+    public GameObject ammo;
+    AmmoController ammoController;
+
     Rigidbody knifeRb;
     public bool free = true;
     public float rotationSpeed;
@@ -20,6 +23,7 @@ public class KnifeController : MonoBehaviour
         mainController.knife = gameObject;
         knifeRb = gameObject.GetComponent<Rigidbody>();
         logController = log.GetComponent<LogController>();
+        ammoController = ammo.GetComponent<AmmoController>();
     }
 
     private void FixedUpdate()
@@ -52,6 +56,12 @@ public class KnifeController : MonoBehaviour
 
             mainController.ready = false;
             mainController.NewKnife();
+
+            if(ammoController.actualCount < 1)
+            {
+                ammoController.Clear();
+                ammoController.NewGoal();
+            }
         }
         
     }

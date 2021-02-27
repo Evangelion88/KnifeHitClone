@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Controller : MonoBehaviour
 {
+    AmmoController ammoController;
+    public GameObject ammo;
+
     public bool ready = true;
     public int impulseForce;
     public GameObject log;
@@ -19,9 +22,13 @@ public class Controller : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        ammoController = ammo.GetComponent<AmmoController>();
         logCollider = log.GetComponent<MeshCollider>();
         knifeCollider = knife.GetComponent<BoxCollider>();
         knifeRb = knife.GetComponent<Rigidbody>();
+
+        ammoController.NewGoal();
+
     }
 
     // Update is called once per frame
@@ -40,7 +47,10 @@ public class Controller : MonoBehaviour
         knifeRb = knife.GetComponent<Rigidbody>();
         knife.GetComponent<KnifeController>().mainController = this;
         knife.GetComponent<KnifeController>().log = log;
+        knife.GetComponent<KnifeController>().ammo = ammo;
         ready = true;
+
+        ammoController.Throw();
     }
     
 }
