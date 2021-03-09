@@ -60,7 +60,7 @@ public class KnifeController : MonoBehaviour
             if(ammoController.actualCount < 1)
             {
                 ammoController.Clear();
-                ammoController.NewGoal();
+                
             }
         }
         

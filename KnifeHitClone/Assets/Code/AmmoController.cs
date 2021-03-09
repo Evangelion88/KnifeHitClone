@@ -40,13 +40,12 @@ public class AmmoController : MonoBehaviour
 
     public void Clear()
     {
-        for (int i = 0; i < goal-1; i++)
-        {
-            Debug.LogWarning("Destroying, i = " + i);
-            GameObject k = knifesIcons[goal-1 - i];
-            knifesIcons.Remove(knifesIcons[goal-1 - i]);
-            Destroy(k);
-        }
+        foreach (Transform child in gameObject.transform)
+            Destroy(child.gameObject);
+
+        knifesIcons.Clear();
+
+        NewGoal();
     }
 
     public void NewGoal()
@@ -73,4 +72,6 @@ public class AmmoController : MonoBehaviour
     {
         actualCount--;
     }
+
+    
 }
